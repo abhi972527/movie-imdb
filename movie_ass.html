@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       
+        body {
+            font-family: Arial, Tahoma, Serif;
+            color: #2b586e;
+        }
+
+        nav {
+            display: flex;
+            
+            justify-content: space-between;
+          
+            padding: 1rem 2rem;
+           
+            background: #a3bcc7;
+            
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            padding-left: 1rem;
+        }
+
+        #searchMovie {
+            height: 25px;
+            font-size: 15px;
+        }
+
+        #btn {
+            height: 28px;
+            width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <h2>IMDB</h2>
+        <ul>
+            <li><input type="text" id="searchMovie" placeholder=" Enter Movie Name"></li>
+            <li> <button onclick="getMovie()" id="btn">SEARCH</button></li>
+        </ul>
+    </nav>
+
+    <div id="poster">
+        <div id="moviedata">
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+<script>
+    async function getMovie() {
+
+        try {
+            let MovieName = document.getElementById("searchMovie").value
+            let myMovieInfo = document.getElementById("moviedata")
+            let res = await fetch(`http://www.omdbapi.com/?apikey=52cc6ed9&s=${MovieName}`)
+            let data = await res.json();
+            let data1 = data.Search;
+            console.log(data1);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+</script>
