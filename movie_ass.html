@@ -7,21 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-       
         body {
             font-family: Arial, Tahoma, Serif;
-            color: #2b586e;
+            color: #263238;
         }
 
         nav {
             display: flex;
-            
             justify-content: space-between;
-          
             padding: 1rem 2rem;
-           
-            background: #a3bcc7;
-            
+            background: #cfd8dc;
         }
 
         nav ul {
@@ -42,6 +37,32 @@
             height: 28px;
             width: 150px;
         }
+
+        #posterid {
+            width: 200px;
+            height: 200px;
+        }
+        #poster{
+            background-color: rgb(194, 147, 206);
+        }
+        #moviedata {
+            display: grid;
+            grid-template-columns: 25% 25% 25% 25%;
+           
+        }
+
+        #prod {
+            background-color: rgb(0, 0, 0);
+            padding: 10px;
+            line-height: 25px;
+            margin: 15px;
+            width: 205px;
+        }
+
+        #title {
+            text-align: center;
+            color: white;
+        }
     </style>
 </head>
 
@@ -50,7 +71,7 @@
         <h2>IMDB</h2>
         <ul>
             <li><input type="text" id="searchMovie" placeholder=" Enter Movie Name"></li>
-            <li> <button onclick="getMovie()" id="btn">SEARCH</button></li>
+            <li> <button onclick="movieData()" id="btn">SEARCH</button></li>
         </ul>
     </nav>
 
@@ -64,14 +85,66 @@
 
 </html>
 <script>
-    async function getMovie() {
+    async function movieData() {
 
         try {
-            let MovieName = document.getElementById("searchMovie").value
+            let myMovieName = document.getElementById("searchMovie").value
             let myMovieInfo = document.getElementById("moviedata")
-            let res = await fetch(`http://www.omdbapi.com/?apikey=52cc6ed9&s=${MovieName}`)
+
+
+            let res = await fetch(`http://www.omdbapi.com/?apikey=52cc6ed9&t=${myMovieName}`)
             let data = await res.json();
-            console.log(data.Search);
+
+            if (data.Response == "True") {
+                let div = document.createElement("div")
+                div.id = "prod";
+
+                let img = document.createElement("img")
+                img.src = data.Poster
+                img.id = "posterid"
+
+                let h3 = document.createElement("h3")
+                h3.innerHTML = `<span>Title: </span>${data.Title}`
+                h3.id = "title"
+
+                let p1 = document.createElement("p")
+                p1.innerHTML = `<span>Released: </span>${data.Released}`
+                p1.id = "title"
+
+                let p2 = document.createElement("p")
+                p2.innerHTML = `<span>Year: </span>${data.Year}`
+                p2.id = "title"
+
+                let p3 = document.createElement("p")
+                p3.innerHTML = `<span>imdbRating: </span>${data.imdbRating}`
+                p3.id = "title"
+
+                let p4 = document.createElement("p")
+                p4.innerHTML = `<span>Language: </span>${data.Language}`
+                p4.id = "title"
+
+                div.append(img, h3, p1, p2, p3, p4)
+                myMovieInfo.append(div)
+
+            }
+            else {
+
+                let div = document.createElement("div")
+                div.id = "prod";
+
+                let img = document.createElement("img")
+                img.src = "https://media.gettyimages.com/vectors/exclamation-point-icon-on-black-background-vector-id1126751519"
+                img.id = "posterid"
+
+                let h2 = document.createElement("h2")
+                h2.innerHTML = "NO DATA"
+                h2.id = "title"
+
+                div.append(img,h2);
+                myMovieInfo.append(div)
+            }
+            
+            document.getElementById("searchMovie").value = null
         }
         catch (err) {
             console.log(err);
