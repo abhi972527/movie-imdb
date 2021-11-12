@@ -71,8 +71,7 @@
             let myMovieInfo = document.getElementById("moviedata")
             let res = await fetch(`http://www.omdbapi.com/?apikey=52cc6ed9&s=${MovieName}`)
             let data = await res.json();
-            let data1 = data.Search;
-            console.log(data1);
+            console.log(data.Search);
         }
         catch (err) {
             console.log(err);
