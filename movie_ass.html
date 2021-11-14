@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./style/style.css">
     <style>
         body {
             font-family: Arial, Tahoma, Serif;
@@ -69,10 +70,22 @@
             color: red;
             font-size: 12px;
         }
+        #navbar {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 4%;
+            padding-right: 4%;
+            border: solid 1px black;
+        }
     </style>
 </head>
 
 <body>
+
+    <div id="navbar">
+
+    </div>
+
     <nav>
         <h2>IMDB</h2>
         <ul>
@@ -191,4 +204,14 @@
             console.log(err);
         }
     }
+</script>
+
+<script type="module">
+
+    import navbar from "./nav/navbar.js";
+
+    console.log(navbar);
+    let navbar_div = document.getElementById("navbar");
+    navbar_div.innerHTML =  navbar();
+
 </script>
